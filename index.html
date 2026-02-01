@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Assignment 2 Task 1</title>
+    <style>
+        
+        body { background-color: #f0f0f0; text-align: center; font-family: sans-serif; }
+        #svg_box {
+            background-color: #fff;
+            border: 2px solid black;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Drawing Area</h2>
+    <svg id="svg_box" width="600" height="400">
+        <polyline id="the_line" points="" style="fill:none;stroke:rgb(5, 5, 5);stroke-width:4" />
+    </svg>
+    <br><br>
+    <button onclick="reset_all()">Reset Drawing</button>
+
+    <script>
+        var my_svg = document.getElementById("svg_box");
+        var line_element = document.getElementById("the_line");
+        var drawing_now = false;
+        var all_points = "";
+
+        my_svg.onmousedown = function(e) {
+            drawing_now = true;
+            var x = e.offsetX;
+            var y = e.offsetY;
+            all_points = x + "," + y + " ";
+            line_element.setAttribute("points", all_points);
+        };
+
+        my_svg.onmousemove = function(e) {
+            if (drawing_now == true) {
+                var x = e.offsetX;
+                var y = e.offsetY;
+                all_points = all_points + x + "," + y + " ";
+                line_element.setAttribute("points", all_points);
+            }
+        };
+
+        window.onmouseup = function() {
+            drawing_now = false;
+        };
+
+        function reset_all() {
+            all_points = "";
+            line_element.setAttribute("points", "");
+        }
+    </script>
+</body>
+</html>
